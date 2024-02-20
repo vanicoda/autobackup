@@ -1,20 +1,24 @@
 import os
 import shutil
 from datetime import datetime
+import configparser
 
-SOURCE_DIR = 'C:/Users/원본파일.txt'  # 원본 파일 경로. 확장자 포함
-TARGET_FOLDER = 'C:/Users/backup' # 복사될 폴더의 위치 
-FILE_NAME = '파일.txt' #만들어질 파일 이름. 확장자 포함
+config = configparser.ConfigParser()
+config.read('settings.ini')
 
+source_dir = config['settings']['SOURCE_DIR']
+target_folder = config['settings']['TARGET_FOLDER']
+file_name = config['settings']['FILE_NAME']
+date_format = config['settings']['DATE_FORMAT']
 
-today = datetime.now().strftime("%y%m%d")
-target = os.path.join(TARGET_FOLDER, today) 
+today = datetime.now().strftime(date_format)
+target = os.path.join(target_folder, today) 
 
 if not os.path.exists(target):
     os.makedirs(target)
 
-src = SOURCE_DIR 
-file = os.path.join(target, FILE_NAME)
+src = source_dir 
+file = os.path.join(target, file_name)
 
 shutil.copy(src, file)
 
