@@ -3,8 +3,12 @@ import shutil
 from datetime import datetime
 import configparser
 
-config = configparser.ConfigParser()
-config.read('settings.ini')
+config = configparser.ConfigParser(interpolation=None)
+
+try:
+    config.read('settings.ini', encoding='utf-8')
+except UnicodeDecodeError:
+    config.read('settings.ini', encoding='cp949')
 
 source_dir = config['settings']['SOURCE_DIR']
 target_folder = config['settings']['TARGET_FOLDER']

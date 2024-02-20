@@ -1,5 +1,5 @@
 @echo off
 python app.py
 echo Done
-timeout /t 1
+timeout /t 2
 exit
